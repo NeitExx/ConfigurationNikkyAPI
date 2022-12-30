@@ -1,0 +1,4 @@
+name: ConfigurationNikkyAPI
+main: me.neitexx.configuration.BootstrapConfigurationAPI
+version: ${version}
+author: NeitExx
