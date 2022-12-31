@@ -1,61 +1,27 @@
 package me.neitexx.configuration.api.service;
 
-import lombok.*;
-import me.neitexx.configuration.api.repository.ConfigurationRepository;
 import me.neitexx.configuration.api.DefaultConfiguration;
+import me.neitexx.configuration.api.repository.ConfigurationRepository;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Optional;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ConfigurationService {
+public interface ConfigurationService {
 
-    private final Map<JavaPlugin, ConfigurationRepository> repositories = new ConcurrentHashMap<>();
+    ConfigurationService initialize(@NotNull JavaPlugin javaPlugin);
 
-    @Getter
-    private static final ConfigurationService instance = new ConfigurationService();
+    ConfigurationService initialize(@NotNull JavaPlugin javaPlugin, @Nullable ConfigurationRepository configurationRepository);
 
-    public ConfigurationService appendPlugin(@NotNull final JavaPlugin javaPlugin) {
-        if(this.repositories.containsKey(javaPlugin))
-            throw new RuntimeException(String.format("Configuration repository for <%s> already initialized", javaPlugin.getClass().getSimpleName()));
+    <T extends DefaultConfiguration> Optional<T> findById(@NotNull String id);
 
-        val repository = new ConfigurationRepository(javaPlugin.getDataFolder());
-        this.repositories.put(javaPlugin, repository);
+    <T extends DefaultConfiguration> Optional<T> findByClass(@NotNull Class<T> tClass);
 
-        return this;
-    }
+    ConfigurationService register(@NotNull Class<? extends DefaultConfiguration>... configurationClasses);
 
-    @SafeVarargs
-    public final ConfigurationService register(@NotNull final JavaPlugin javaPlugin,
-                                               @NotNull final Class<? extends DefaultConfiguration>... configurationClasses){
-        val repository = this.getRepository(javaPlugin);
+    ConfigurationService unregister(@NotNull String... keys);
 
-        for (Class<? extends DefaultConfiguration> configuration : configurationClasses)
-            repository.add(configuration);
-
-        return this;
-    }
-
-    public ConfigurationService unregister(@NotNull final JavaPlugin javaPlugin, @NotNull final String... keys){
-        val repository = this.getRepository(javaPlugin);
-
-        for (String key : keys)
-            repository.remove(key);
-
-        return this;
-    }
-
-    public ConfigurationService unregister(@NotNull final JavaPlugin javaPlugin){
-        this.repositories.remove(javaPlugin);
-        return this;
-    }
-
-    public ConfigurationRepository getRepository(@NotNull final JavaPlugin javaPlugin){
-        if (!this.repositories.containsKey(javaPlugin)) this.appendPlugin(javaPlugin);
-
-        return this.repositories.get(javaPlugin);
-    }
+    ConfigurationService unregisterAll();
 
 }
