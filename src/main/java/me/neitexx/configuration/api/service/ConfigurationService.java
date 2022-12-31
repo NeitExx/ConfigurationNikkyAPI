@@ -1,6 +1,8 @@
-package me.neitexx.configuration.api;
+package me.neitexx.configuration.api.service;
 
 import lombok.*;
+import me.neitexx.configuration.api.repository.ConfigurationRepository;
+import me.neitexx.configuration.api.DefaultConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,10 +29,10 @@ public final class ConfigurationService {
 
     @SafeVarargs
     public final ConfigurationService register(@NotNull final JavaPlugin javaPlugin,
-                                               @NotNull final Class<? extends BasicConfiguration>... configurationClasses){
+                                               @NotNull final Class<? extends DefaultConfiguration>... configurationClasses){
         val repository = this.getRepository(javaPlugin);
 
-        for (Class<? extends BasicConfiguration> configuration : configurationClasses)
+        for (Class<? extends DefaultConfiguration> configuration : configurationClasses)
             repository.add(configuration);
 
         return this;

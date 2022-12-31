@@ -1,7 +1,8 @@
-package me.neitexx.configuration.api;
+package me.neitexx.configuration.api.repository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import me.neitexx.configuration.api.DefaultConfiguration;
 import me.neitexx.configuration.api.annotation.ConfigurationKey;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,11 +14,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ConfigurationRepository {
 
-    private final Map<String, BasicConfiguration> configs = new HashMap<>();
+    private final Map<String, DefaultConfiguration> configs = new HashMap<>();
     private final File dataFolder;
 
     @SuppressWarnings("unchecked")
-    public <T extends BasicConfiguration> Optional<T> findById(@NotNull final String id) {
+    public <T extends DefaultConfiguration> Optional<T> findById(@NotNull final String id) {
         val value = configs.get(id);
         return Optional.ofNullable(value == null ? null : (T) value);
     }
@@ -27,10 +28,10 @@ public class ConfigurationRepository {
     }
 
     public void saveAll() {
-        this.configs.values().forEach(BasicConfiguration::save);
+        this.configs.values().forEach(DefaultConfiguration::save);
     }
 
-    public boolean add(@NotNull final Class<? extends BasicConfiguration> configurationClass){
+    public boolean add(@NotNull final Class<? extends DefaultConfiguration> configurationClass){
         val configurationKey = configurationClass.isAnnotationPresent(ConfigurationKey.class) ?
                 configurationClass.getDeclaredAnnotation(ConfigurationKey.class).key() : configurationClass.getSimpleName();
 

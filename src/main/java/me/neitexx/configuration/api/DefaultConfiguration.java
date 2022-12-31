@@ -3,6 +3,8 @@ package me.neitexx.configuration.api;
 import lombok.*;
 import me.neitexx.configuration.api.annotation.ConfigurationPath;
 import me.neitexx.configuration.api.reflect.DefaultReflectHandler;
+import me.neitexx.configuration.api.reflect.FieldHandler;
+import me.neitexx.configuration.api.reflect.FieldWithPathHandler;
 import me.neitexx.configuration.api.reflect.ReflectHandler;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,23 +12,24 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 
-public abstract class BasicConfiguration extends YamlConfiguration implements Configuration {
+public abstract class DefaultConfiguration extends YamlConfiguration implements Configuration {
 
     @Getter private File file;
     @Getter @Setter(AccessLevel.PROTECTED) private ReflectHandler reflectHandler;
+    @Getter @Setter(AccessLevel.PROTECTED) private FieldHandler fieldHandler;
 
-    public BasicConfiguration initialize(@NotNull final File dataFolder){
+    public DefaultConfiguration initialize(@NotNull final File dataFolder){
         if (getReflectHandler() == null) this.reflectHandler = new DefaultReflectHandler();
+        if (getFieldHandler() == null) this.fieldHandler = new FieldWithPathHandler(this);
 
         if(getFile() != null) throw new RuntimeException(String.format("Configuration <%s> already initialized", this.getClass().getSimpleName()));
         this.createIfNotExist(dataFolder);
 
         if(getFile() == null) throw new RuntimeException("Error in configuration initializing");
 
-        this.execute(FieldExecuteType.WRITE);
+        this.handleFields(FieldExecuteType.WRITE);
         this.afterInitializing();
 
         return this;
@@ -35,41 +38,32 @@ public abstract class BasicConfiguration extends YamlConfiguration implements Co
     public abstract void afterInitializing();
 
     private void createIfNotExist(@NotNull final File dataFolder) {
-        val directory = new File(dataFolder, this.getDirectory());
-        val file = new File(directory, getConfigurationName());
+        val handler = new FileHandler(dataFolder, this);
 
         try {
-            Files.createDirectory(directory.toPath());
-            Files.createFile(file.toPath());
-
+            this.file = handler.generate();
             this.load(file);
         } catch (IOException | InvalidConfigurationException exception) {
             throw new RuntimeException(String.format("Some trouble with loading <%s> configuration class", this.getClass().getSimpleName()), exception);
         }
-
-        this.file = file;
     }
 
     @SneakyThrows
-    private void execute(@NotNull final FieldExecuteType executeType) {
+    private void handleFields(@NotNull final FieldExecuteType executeType) {
         synchronized (this) {
             Arrays.stream(this.getClass().getDeclaredFields())
                     .filter(field -> field.isAnnotationPresent(ConfigurationPath.class))
                     .forEach(field -> {
-                        val path = field.getAnnotation(ConfigurationPath.class).path();
-
-                        getReflectHandler().executeAccessible(accessibleObject -> {
-                            if (executeType == FieldExecuteType.WRITE)
-                                getReflectHandler().setFieldValue(this, accessibleObject, this.get(path));
-                            else if (executeType == FieldExecuteType.READ)
-                                this.set(path, getReflectHandler().getFieldValue(this, accessibleObject));
-                        }, field);
+                        switch (executeType) {
+                            case WRITE: getFieldHandler().write(field);
+                            case READ: getFieldHandler().read(field);
+                        }
                     });
         }
     }
 
     public void save() {
-        this.execute(FieldExecuteType.READ);
+        this.handleFields(FieldExecuteType.READ);
 
         try {
             this.save(getFile());
