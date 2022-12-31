@@ -18,7 +18,7 @@ public interface ConfigurationService {
 
     <T extends DefaultConfiguration> Optional<T> findByClass(@NotNull Class<T> tClass);
 
-    ConfigurationService register(@NotNull Class<? extends DefaultConfiguration>... configurationClasses);
+    ConfigurationService register(@NotNull Class<? extends DefaultConfiguration> configurationClass);
 
     ConfigurationService unregister(@NotNull String... keys);
 

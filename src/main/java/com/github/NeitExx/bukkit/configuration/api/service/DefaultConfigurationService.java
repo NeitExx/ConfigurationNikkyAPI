@@ -42,11 +42,8 @@ public final class DefaultConfigurationService implements ConfigurationService {
     }
 
     @Override
-    @SafeVarargs
-    public final ConfigurationService register(@NotNull final Class<? extends DefaultConfiguration>... configurationClasses) {
-        for (Class<? extends DefaultConfiguration> configuration : configurationClasses)
-            getRepository().append(configuration);
-
+    public final ConfigurationService register(@NotNull final Class<? extends DefaultConfiguration> configurationClass) {
+        getRepository().append(configurationClass);
         return this;
     }
 
