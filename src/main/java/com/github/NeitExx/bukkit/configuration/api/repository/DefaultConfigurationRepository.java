@@ -1,14 +1,13 @@
-package me.neitexx.configuration.api.repository;
+package com.github.NeitExx.bukkit.configuration.api.repository;
 
+import com.github.NeitExx.bukkit.configuration.api.annotation.ConfigurationKey;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import me.neitexx.configuration.api.DefaultConfiguration;
-import me.neitexx.configuration.api.annotation.ConfigurationKey;
+import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class DefaultConfigurationRepository implements ConfigurationRepository {

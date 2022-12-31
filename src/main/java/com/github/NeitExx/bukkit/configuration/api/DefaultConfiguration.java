@@ -1,11 +1,11 @@
-package me.neitexx.configuration.api;
+package com.github.NeitExx.bukkit.configuration.api;
 
+import com.github.NeitExx.bukkit.configuration.api.annotation.ConfigurationPath;
 import lombok.*;
-import me.neitexx.configuration.api.annotation.ConfigurationPath;
-import me.neitexx.configuration.api.reflect.DefaultReflectHandler;
-import me.neitexx.configuration.api.reflect.FieldHandler;
-import me.neitexx.configuration.api.reflect.FieldWithPathHandler;
-import me.neitexx.configuration.api.reflect.ReflectHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.DefaultReflectHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.FieldHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.FieldWithPathHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.ReflectHandler;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;

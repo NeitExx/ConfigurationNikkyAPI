@@ -1,4 +1,4 @@
-package me.neitexx.configuration;
+package com.github.NeitExx.bukkit.configuration;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

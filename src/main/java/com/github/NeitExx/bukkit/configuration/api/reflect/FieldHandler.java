@@ -1,6 +1,6 @@
-package me.neitexx.configuration.api.reflect;
+package com.github.NeitExx.bukkit.configuration.api.reflect;
 
-import me.neitexx.configuration.api.DefaultConfiguration;
+import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;

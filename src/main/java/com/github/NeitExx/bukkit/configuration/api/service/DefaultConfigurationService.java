@@ -1,9 +1,9 @@
-package me.neitexx.configuration.api.service;
+package com.github.NeitExx.bukkit.configuration.api.service;
 
+import com.github.NeitExx.bukkit.configuration.api.repository.DefaultConfigurationRepository;
 import lombok.*;
-import me.neitexx.configuration.api.repository.ConfigurationRepository;
-import me.neitexx.configuration.api.repository.DefaultConfigurationRepository;
-import me.neitexx.configuration.api.DefaultConfiguration;
+import com.github.NeitExx.bukkit.configuration.api.repository.ConfigurationRepository;
+import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

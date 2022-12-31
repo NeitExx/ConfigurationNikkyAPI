@@ -1,4 +1,4 @@
-package me.neitexx.configuration.api.annotation;
+package com.github.NeitExx.bukkit.configuration.api.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

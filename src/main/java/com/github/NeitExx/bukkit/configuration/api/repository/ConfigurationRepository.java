@@ -1,6 +1,6 @@
-package me.neitexx.configuration.api.repository;
+package com.github.NeitExx.bukkit.configuration.api.repository;
 
-import me.neitexx.configuration.api.DefaultConfiguration;
+import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

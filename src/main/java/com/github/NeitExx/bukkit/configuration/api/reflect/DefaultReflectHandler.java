@@ -1,4 +1,4 @@
-package me.neitexx.configuration.api.reflect;
+package com.github.NeitExx.bukkit.configuration.api.reflect;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

@@ -1,10 +1,10 @@
-package me.neitexx.configuration.api.reflect;
+package com.github.NeitExx.bukkit.configuration.api.reflect;
 
+import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
+import com.github.NeitExx.bukkit.configuration.api.annotation.ConfigurationPath;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import me.neitexx.configuration.api.DefaultConfiguration;
-import me.neitexx.configuration.api.annotation.ConfigurationPath;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;

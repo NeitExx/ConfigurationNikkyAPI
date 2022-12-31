@@ -1,10 +1,6 @@
 ### Example of configuration class
 
 ```java
-import me.neitexx.configuration.api.DefaultConfiguration;
-import me.neitexx.configuration.api.annotation.ConfigurationKey;
-import me.neitexx.configuration.api.annotation.ConfigurationPath;
-
 @ConfigurationKey(key = "MyId")
 public class YourConfiguration extends DefaultConfiguration {
     

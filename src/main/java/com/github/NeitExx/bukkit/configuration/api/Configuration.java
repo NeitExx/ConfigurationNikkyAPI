@@ -1,7 +1,7 @@
-package me.neitexx.configuration.api;
+package com.github.NeitExx.bukkit.configuration.api;
 
-import me.neitexx.configuration.api.reflect.FieldHandler;
-import me.neitexx.configuration.api.reflect.ReflectHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.FieldHandler;
+import com.github.NeitExx.bukkit.configuration.api.reflect.ReflectHandler;
 
 import java.io.File;
 

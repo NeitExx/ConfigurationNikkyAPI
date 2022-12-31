@@ -1,4 +1,4 @@
-package me.neitexx.configuration.api;
+package com.github.NeitExx.bukkit.configuration.api;
 
 import lombok.RequiredArgsConstructor;
 import lombok.val;
