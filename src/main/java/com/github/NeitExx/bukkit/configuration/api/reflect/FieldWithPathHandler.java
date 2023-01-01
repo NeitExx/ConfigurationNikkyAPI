@@ -21,7 +21,7 @@ public class FieldWithPathHandler implements FieldHandler {
         val reflectHandler = getConfiguration().getReflectHandler();
 
         reflectHandler.executeAccessible(accessibleObject -> {
-            getConfiguration().set(path, reflectHandler.getFieldValue(this, accessibleObject));
+            getConfiguration().set(path, reflectHandler.getFieldValue(getConfiguration(), accessibleObject));
         }, field);
     }
 
@@ -31,7 +31,7 @@ public class FieldWithPathHandler implements FieldHandler {
         val reflectHandler = getConfiguration().getReflectHandler();
 
         reflectHandler.executeAccessible(accessibleObject -> {
-            reflectHandler.setFieldValue(this, accessibleObject, getConfiguration().get(path));
+            reflectHandler.setFieldValue(getConfiguration(), accessibleObject, getConfiguration().get(path));
         }, field);
     }
 
