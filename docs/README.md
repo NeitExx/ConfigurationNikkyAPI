@@ -25,7 +25,7 @@ public class YourConfiguration extends DefaultConfiguration {
 }
 ```
 
->Annotation [@ConfigurationKey](https://github.com/NeitExx/ConfigurationNikkyAPI/blob/559a470089151636c557128bb68a2b14a312d78c/src/main/java/me/neitexx/configuration/api/annotation/ConfigurationKey.java) sets the key you will use to find your configuration in the ConfigurationService. By default, this is the class of the configuration class.
+>Annotation [@ConfigurationKey](https://github.com/NeitExx/ConfigurationNikkyAPI/blob/559a470089151636c557128bb68a2b14a312d78c/src/main/java/me/neitexx/configuration/api/annotation/ConfigurationKey.java) sets the key you will use to find your configuration in the ConfigurationService. By default, this is the name of the configuration class.
 
 >Annotation [@ConfigurationPath](https://github.com/NeitExx/ConfigurationNikkyAPI/blob/559a470089151636c557128bb68a2b14a312d78c/src/main/java/me/neitexx/configuration/api/annotation/ConfigurationPath.java) sets the path to your value in the config file.
 
