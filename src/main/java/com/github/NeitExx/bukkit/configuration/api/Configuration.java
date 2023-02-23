@@ -19,4 +19,8 @@ public interface Configuration {
         return "";
     }
 
+    default PathToDataFolder getDataFolder() {
+        return PathToDataFolder.defaultPath();
+    }
+
 }

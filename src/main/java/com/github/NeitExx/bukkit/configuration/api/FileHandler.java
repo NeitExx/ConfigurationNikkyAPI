@@ -17,6 +17,8 @@ public class FileHandler {
         val directory = new File(dataFolder, configuration.getDirectory());
         val file = new File(directory, configuration.getConfigurationName());
 
+        if (directory.exists() && file.exists()) return file;
+
         Files.createDirectory(directory.toPath());
         Files.createFile(file.toPath());
 

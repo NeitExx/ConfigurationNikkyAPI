@@ -1,15 +1,15 @@
 package com.github.NeitExx.bukkit.configuration.api.repository;
 
 import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.Collection;
 import java.util.Optional;
 
 public interface ConfigurationRepository {
 
-    void setDataFolder(@NotNull File dataFolder);
+    void setJavaPlugin(@NotNull JavaPlugin javaPlugin);
 
     boolean isDataFolderNull();
 

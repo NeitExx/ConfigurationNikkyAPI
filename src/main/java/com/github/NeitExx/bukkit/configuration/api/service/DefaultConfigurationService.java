@@ -37,7 +37,7 @@ public final class DefaultConfigurationService implements ConfigurationService {
         if (!getRepository().isDataFolderNull())
             throw new RuntimeException(String.format("Configuration repository for <%s> already initialized", javaPlugin.getClass().getSimpleName()));
 
-        getRepository().setDataFolder(javaPlugin.getDataFolder());
+        getRepository().setJavaPlugin(javaPlugin);
         return this;
     }
 

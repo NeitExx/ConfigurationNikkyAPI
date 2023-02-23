@@ -8,6 +8,7 @@ import com.github.NeitExx.bukkit.configuration.api.reflect.FieldWithPathHandler;
 import com.github.NeitExx.bukkit.configuration.api.reflect.ReflectHandler;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -20,12 +21,13 @@ public abstract class DefaultConfiguration extends YamlConfiguration implements 
     @Getter @Setter(AccessLevel.PROTECTED) private ReflectHandler reflectHandler;
     @Getter @Setter(AccessLevel.PROTECTED) private FieldHandler fieldHandler;
 
-    public DefaultConfiguration initialize(@NotNull final File dataFolder){
+    public DefaultConfiguration initialize(@NotNull final JavaPlugin javaPlugin) {
+        if(getFile() != null) throw new RuntimeException(String.format("Configuration <%s> already initialized", this.getClass().getSimpleName()));
+
         if (getReflectHandler() == null) this.reflectHandler = new DefaultReflectHandler();
         if (getFieldHandler() == null) this.fieldHandler = new FieldWithPathHandler(this);
 
-        if(getFile() != null) throw new RuntimeException(String.format("Configuration <%s> already initialized", this.getClass().getSimpleName()));
-        this.createIfNotExist(dataFolder);
+        this.createIfNotExist(javaPlugin);
 
         if(getFile() == null) throw new RuntimeException("Error in configuration initializing");
 
@@ -37,8 +39,8 @@ public abstract class DefaultConfiguration extends YamlConfiguration implements 
 
     public abstract void afterInitializing();
 
-    private void createIfNotExist(@NotNull final File dataFolder) {
-        val handler = new FileHandler(dataFolder, this);
+    private void createIfNotExist(@NotNull final JavaPlugin javaPlugin) {
+        val handler = new FileHandler(getDataFolder().acceptByPlugin(javaPlugin), this);
 
         try {
             this.file = handler.generate();

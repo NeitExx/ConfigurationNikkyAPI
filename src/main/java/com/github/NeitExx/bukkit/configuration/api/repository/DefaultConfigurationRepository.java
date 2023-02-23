@@ -4,6 +4,7 @@ import com.github.NeitExx.bukkit.configuration.api.annotation.ConfigurationKey;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import com.github.NeitExx.bukkit.configuration.api.DefaultConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -13,16 +14,16 @@ import java.util.*;
 public class DefaultConfigurationRepository implements ConfigurationRepository {
 
     private final Map<String, DefaultConfiguration> configs = new HashMap<>();
-    private File dataFolder;
+    private JavaPlugin javaPlugin;
 
     @Override
-    public void setDataFolder(@NotNull final File dataFolder) {
-        this.dataFolder = dataFolder;
+    public void setJavaPlugin(@NotNull final JavaPlugin javaPlugin) {
+        this.javaPlugin = javaPlugin;
     }
 
     @Override
     public boolean isDataFolderNull() {
-        return dataFolder == null;
+        return javaPlugin == null;
     }
 
     @Override
@@ -63,7 +64,7 @@ public class DefaultConfigurationRepository implements ConfigurationRepository {
                 configurationClass.getDeclaredAnnotation(ConfigurationKey.class).key() : configurationClass.getSimpleName();
 
         try {
-            this.configs.put(configurationKey, configurationClass.newInstance().initialize(dataFolder));
+            this.configs.put(configurationKey, configurationClass.newInstance().initialize(javaPlugin));
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
             return false;

@@ -1,4 +1,4 @@
 name: ConfigurationNikkyAPI
-main: me.neitexx.configuration.BootstrapConfigurationAPI
+main: com.github.NeitExx.bukkit.configuration.BootstrapConfigurationAPI
 version: ${version}
 author: NeitExx
