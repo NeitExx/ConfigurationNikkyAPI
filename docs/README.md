@@ -53,7 +53,7 @@ ConfigurationService service = new DefaultConfigurationService().initialize(Java
 ConfigurationService service = new DefaultConfigurationService().initialize(JavaPlugin, ConfigurationRepository);
 
 // Your configuration registration
-service.register(JavaPlugin, YourConfiguration.class);
+service.register(YourConfiguration.class);
 
 // If your configuration class annotated with @ConfigurationKey you must use the key to find your instance
 service.<YourConfiguration>findById("MyId");
