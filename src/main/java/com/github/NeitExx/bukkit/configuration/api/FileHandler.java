@@ -19,8 +19,8 @@ public class FileHandler {
 
         if (directory.exists() && file.exists()) return file;
 
-        Files.createDirectory(directory.toPath());
-        Files.createFile(file.toPath());
+        if (!directory.exists() && directory.isDirectory()) Files.createDirectory(directory.toPath());
+        if (!file.exists()) Files.createFile(file.toPath());
 
         return file;
     }
